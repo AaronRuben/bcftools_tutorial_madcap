@@ -41,20 +41,20 @@ Here, we have SNPs and three samples. The data lines always follow the following
  7. FILTER - passed filters
  8. INFO - typically provides general annotation of the given variant. Descriptions of the annotations can be found in the corresponding meta-information lines.
 If genotype data is present, there will also be
-  9. FORMAT field - specifying the data and order of individuals sample information. Again descriptions of the different data fields within the FORMAT field can be found in the meta-information lines.
-  10. Individual sample genoytpe data.
+  9. FORMAT field - specifying the data and order of individual sample information. Again descriptions of the different data fields within the FORMAT field can be found in the meta-information lines.
+  10. Individual sample genotype data.
   11. ...
 
-Individual genotype data can either be unphased or phased. If the data is phased, we know which allele was inherited from the mother and father, respectively. Unphased genotypes are seperated by **/**, while phased genotypes are separated by **|**. Furthermore, 0 always refers to the REF allele, 1 refers to the first ALT allele, and if multi-allelic, 2 refers to the second ALT allele, etc.
+Individual genotype data can either be unphased or phased. If the data is phased, we know which allele was inherited from the mother and father, respectively. Unphased genotypes are separated by **/**, while phased genotypes are separated by **|**. Furthermore, 0 always refers to the REF allele, 1 refers to the first ALT allele, and if multi-allelic, 2 refers to the second ALT allele, etc.
 
-To reduce disk space, VCF are often block compressed using bgzip (indicated by a **.gz** suffix). Compressed files are not human-readable per se and need to be uncompressed first or viewed with BCFtools (more on this later).
+To reduce disk space, VCFs are often block compressed using bgzip (indicated by a **.gz** suffix). Compressed files are not human-readable per se and need to be uncompressed first or viewed with BCFtools (more on this later).
 
-Furthermore, to enable efficient data look ups VCFs are often indexed with [tabix](http://www.htslib.org/doc/tabix.html), creating additional filen with the exact same name as the VCF augmented with **.tbi** suffix.
+Furthermore, to enable efficient data lookups VCFs are often indexed with [tabix](http://www.htslib.org/doc/tabix.html), creating an additional file with the exact same name as the VCF augmented with **.tbi** suffix.
 
 For a more detailed description of VCF, I refer you to the [manual](https://samtools.github.io/hts-specs/VCFv4.4.pdf).
 
 ## Introduction to BCFtools
-As mentioned earlier BCFtools is a power software suite to view, manipulate, and analyze VCF files. In the following, I'll guide through the installations (that's often the hardest part) and some simple examples. Note that I assume that you are using a Mac (or Linux distributions), although most of the code should also work on Windows computers. If you run into problems, please, let me know.
+As mentioned earlier BCFtools is a power software suite to view, manipulate, and analyze VCF files. In the following, I'll guide through the installations (that's often the hardest part) and some simple examples. Note that I assume that you are using a Mac (or Linux distribution), although most of the code should also work on Windows computers. If you run into problems, please, let me know.
 
 ### Installing BCFtools
 To install BCFtools, open a terminal and run the following lines of code:
@@ -66,7 +66,7 @@ user@bash:~ $ git clone https://github.com/samtools/bcftools.git
 user@bash:~ $ cd bcftools
 user@bash:bcftools $ make
 ```
-Finally, to make the bcftools executable availabe from any directory (i.e., make it a global variable), we have to add the directory in wich we installed BCFtools to our `PATH` variable:
+Finally, to make the bcftools executable available from any directory (i.e., make it a global variable), we have to add the directory in which we installed BCFtools to our `PATH` variable:
 ```
 user@bash:~ $ export PATH=$PATH:~/bcftools:~/bcftools/misc/
 ```
@@ -122,7 +122,7 @@ Commands:
  in all situations. Un-indexed VCF and BCF and streams will work in most but
  not all situations
 ```
-This prints out the different programs implemented in BCFtools. To get more information on specific program, e.g., `view`, run:
+This prints out the different programs implemented in BCFtools. To get more information on a specific program, e.g., `view`, run:
 ```
 user@bash:~ $ bcftools view --help
 ```
@@ -139,14 +139,14 @@ Let's take a look at the data.
 ```
 user@bash:bcftools_tutorial_madcap $ bcftools view data/example.vcf.gz
 ```
-This is a bad idea, it will print a lot of lines (you can abort the command with CTRL+C.
+This is a **bad idea**, it will print a lot of lines (you can abort the command with CTRL+C).
 
 <details>
-  <summary>Try working with the documentation to print the first 10 data lines only! Hint: You want to use the "|" operator and "head" command.</summary>
+  <summary>Try working with the documentation to print the first 10 data lines only! **Hint:** You want to use the "|" operator and "head" command.</summary>
 
 <pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -H data/example.vcf.gz | head -n 10</code></pre>
 
-  The `-H` suppress bcftools from printing the meta-information lines. In bash, the `|` operator passes on (pipes) the out the following command. In this cases, `head -n 10`, which only prints the first 10 lines.  
+  The `-H` flag suppresses bcftools from printing the meta-information lines. In bash, the `|` operator passes on (pipes) the out the following command. In this case, `head -n 10`, which only prints the first 10 lines.  
 </details>
 
 ### Subsetting VCFs
@@ -163,7 +163,7 @@ This command will extract all samples contained in (`-S`) `data/yri_samples.txt`
 </details>
 
 <details>
-  <summary>Now create a tabix index for the newly generated VCFs. This will allow efficient efficient look-ups in future.</summary>
+  <summary>Now create a tabix index for the newly generated VCFs. This will allow efficient efficient look-ups in the future.</summary>
 
 <pre><code>user@bash:bcftools_tutorial_madcap $ bcftools index -t data/gbr_example.vcf.gz</code></pre>
 
@@ -172,7 +172,7 @@ The `-t` flag tells bcftools to generate a tabix index rather than a CSI index, 
 
 #### Subset by genomic region
 <details>
-  <summary>Assuming your favorite gene is <em>PCAT1</em>, try to extract variants that fall into the gene body. On hg19, the coordinates for <em>PCAT1</em> are: <b>chr8:128,025,399-128,033,259</b>. How many variants fall into this region? Hint: bcftools is sensitive to the chromosome notations (i.e., chr8 vs 8) and you can count lines with <code>wc -l</code></summary>
+  <summary>Assuming your favorite gene is <em>PCAT1</em>, try to extract variants that fall into the gene body. On hg19, the coordinates for <em>PCAT1</em> are: <b>chr8:128,025,399-128,033,259</b>. How many variants fall into this region? **Hint:** bcftools is sensitive to the chromosome notations (i.e., chr8 vs 8) and you can count lines with <code>wc -l</code></summary>
 
 <pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -r 8:128025399-128033259 data/example.vcf.gz | wc -l</code></pre>
 
@@ -181,7 +181,7 @@ The correct answer is **557**. The `-r` variable specifies a genomic region and 
 
 #### Subset a set of variants by variant type, number of alleles present at a site, allele count, and allele frequency
 <details>
-  <summary>How many single-nucleotide polymorphisms (SNPS) fall into the <em>PCAT1</em> region?</summary>
+  <summary>How many single-nucleotide polymorphisms (SNPs) fall into the <em>PCAT1</em> region?</summary>
 
 <pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -r 8:128025399-128033259 -v snps data/example.vcf.gz | wc -l</code></pre>
 
@@ -201,25 +201,25 @@ The correct answer is **549**. The `--min-alleles` and `--max-alleles` variables
 
 <pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -r 8:128025399-128033259 -v snps --min-ac 2 --max-ac 2 --min-ac 10 data/example.vcf.gz | wc -l</code></pre>
 
-The correct answer is **256**. The `--min-ac` variables specifies the minimum number of non-reference allele counts for a site to be included.
+The correct answer is **256**. The `--min-ac` variables specify the minimum number of non-reference allele counts for a site to be included.
 </details>
 
 <details>
-  <summary>How many of all variants in the <em>PCAT1</em> region are common in Africa (AF > 0.05) and rare in Europe (AF <=0.05)? Hint: you may want to use <code>bcftools query</code></summary>
+  <summary>How many of all variants in the <em>PCAT1</em> region are common in Africa (AF > 0.05) and rare in Europe (AF <=0.05)? **Hint:** you may want to use <code>bcftools query</code></summary>
 
 <pre><code>user@bash:bcftools_tutorial_madcap $ bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\t%INFO[\t%GT]\n' -i 'AFR_AF > 0.01 && EUR_AF <= 0.01' -r 8:128025399-128033259 data/example.vcf.gz | wc -l</code></pre>
 
-The correct answer is **26**. The `-f` variables specifies which fields to print (i.e., the output format), while the `-i` variable specifies conditions for a site to be included. Note that the qutations are marks are required!! *&&* indicates that both conditions must be met for a site to be included. If you use *||* instead, a site will be included if either condition is met. 
+The correct answer is **26**. The `-f` variable specifies which fields to print (i.e., the output format), while the `-i` variable specifies conditions for a site to be included. Note that quotation marks are required!! *&&* indicates that both conditions must be met for a site to be included. If you use *||* instead, a site will be included if either condition is met. 
 </details>
 <details>
   <summary><h2>Bonus</h2></summary>
   
 ### Get summary statistics
-Let's look at some of statistics, describing the data:
+Let's look at some of the statistics, describing the data:
 
 <pre><code>user@bash:bcftools_tutorial_madcap $ bcftools stats data/example.vcf.gz > example_stats.txt</code></pre>
 
-`bcftools stats` will compute some basic statistics, such as the allele frequency spectrum and read depth distribution. We will write these information to a file called `example_stats.txt`.
+`bcftools stats` will compute some basic statistics, such as the allele frequency spectrum and read depth distribution. We will write this information to a file called `example_stats.txt`.
 
 If you have `pdflatex` or `tectonic` installed, you can try to visualize the statistics, using:
 <pre><code>plot-vcfstats -p plots example_stats.txt</code></pre>
