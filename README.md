@@ -1,4 +1,4 @@
-# A brief introduction to VCF file format and BCFtools
+# A brief introduction to the variant call format (VCF) and BCFtools
 
 Genetic data is frequently distributed in the [variant call format (VCF)](https://samtools.github.io/hts-specs/VCFv4.4.pdf). VCF files follow standardized specifications that allow the easy analysis with common software tools, such as [BCFtools](https://samtools.github.io/bcftools/howtos/index.html). BCFtools is a powerful software suits providing tools for viewing, manipulating, and analyzing VCF files. In the following, I will first introduce the VCF file format, and then provide a brief introduction of BCFtools. This tutorial does not explore all the functionalities that come with BCFtools, but it is rather meant as an icebreaker. I recommend looking at the extensive [documentation](https://samtools.github.io/bcftools/bcftools.html) of BCFtools of learn about more powerful ways in which it can be used.
 
