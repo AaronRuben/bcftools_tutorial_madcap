@@ -142,7 +142,7 @@ user@bash:bcftools_tutorial_madcap $ bcftools view data/example.vcf.gz
 This is a **bad idea**, it will print a lot of lines (you can abort the command with CTRL+C).
 
 <details>
-  <summary>Try working with the documentation to print the first 10 data lines only! **Hint:** You want to use the "|" operator and "head" command.</summary>
+  <summary>Try working with the documentation to print the first 10 data lines only! <b>Hint:</b> You want to use the "|" operator and "head" command.</summary>
 
 <pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -H data/example.vcf.gz | head -n 10</code></pre>
 
@@ -172,7 +172,7 @@ The `-t` flag tells bcftools to generate a tabix index rather than a CSI index, 
 
 #### Subset by genomic region
 <details>
-  <summary>Assuming your favorite gene is <em>PCAT1</em>, try to extract variants that fall into the gene body. On hg19, the coordinates for <em>PCAT1</em> are: <b>chr8:128,025,399-128,033,259</b>. How many variants fall into this region? **Hint:** bcftools is sensitive to the chromosome notations (i.e., chr8 vs 8) and you can count lines with <code>wc -l</code></summary>
+  <summary>Assuming your favorite gene is <em>PCAT1</em>, try to extract variants that fall into the gene body. On hg19, the coordinates for <em>PCAT1</em> are: <b>chr8:128,025,399-128,033,259</b>. How many variants fall into this region? <b>Hint:</b> bcftools is sensitive to the chromosome notations (i.e., chr8 vs 8) and you can count lines with <code>wc -l</code></summary>
 
 <pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -r 8:128025399-128033259 data/example.vcf.gz | wc -l</code></pre>
 
@@ -205,7 +205,7 @@ The correct answer is **256**. The `--min-ac` variables specify the minimum numb
 </details>
 
 <details>
-  <summary>How many of all variants in the <em>PCAT1</em> region are common in Africa (AF > 0.05) and rare in Europe (AF <=0.05)? **Hint:** you may want to use <code>bcftools query</code></summary>
+  <summary>How many of all variants in the <em>PCAT1</em> region are common in Africa (AF > 0.05) and rare in Europe (AF <=0.05)? <b>Hint:</b> you may want to use <code>bcftools query</code></summary>
 
 <pre><code>user@bash:bcftools_tutorial_madcap $ bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\t%INFO[\t%GT]\n' -i 'AFR_AF > 0.01 && EUR_AF <= 0.01' -r 8:128025399-128033259 data/example.vcf.gz | wc -l</code></pre>
 
