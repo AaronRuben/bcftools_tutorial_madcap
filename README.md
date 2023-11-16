@@ -54,7 +54,7 @@ Furthermore, to enable efficient data lookups VCFs are often indexed with [tabix
 For a more detailed description of VCF, I refer you to the [manual](https://samtools.github.io/hts-specs/VCFv4.4.pdf).
 
 ## Introduction to BCFtools
-As mentioned earlier BCFtools is a power software suite to view, manipulate, and analyze VCF files. In the following, I'll guide through the installations (that's often the hardest part) and some simple examples. Note that I assume that you are using a Mac (or Linux distribution), although most of the code should also work on Windows computers. If you run into problems, please, let me know.
+As mentioned earlier BCFtools is a power software suite to view, manipulate, and analyze VCF files. In the following, I'll guide you through the installations (that's often the hardest part) and some simple examples. Note that I assume that you are using a Mac (or Linux distribution), although most of the code should also work on Windows computers. If you use Windows, I recommend installing [Ubuntu terminal](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-11-with-gui-support#1-overview). If you run into problems, please, let me know.
 
 ### Installing BCFtools
 To install BCFtools, open a terminal and run the following lines of code:
