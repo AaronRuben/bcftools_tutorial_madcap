@@ -174,38 +174,38 @@ The `-t` flag tells bcftools to generate a tabix index rather than a CSI index, 
 <details>
   <summary>Assuming your favorite gene is <em>PCAT1</em>, try to extract variants that fall into the gene body. On hg19, the coordinates for <em>PCAT1</em> are: <b>chr8:128,025,399-128,033,259</b>. How many variants fall into this region? <b>Hint:</b> bcftools is sensitive to the chromosome notations (i.e., chr8 vs 8) and you can count lines with <code>wc -l</code></summary>
 
-<pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -r 8:128025399-128033259 data/example.vcf.gz | wc -l</code></pre>
+<pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -H -r 8:128025399-128033259 data/example.vcf.gz | wc -l</code></pre>
 
-The correct answer is **557**. The `-r` variable specifies a genomic region and only variants within this reason will be included.
+The correct answer is **301**. The `-r` variable specifies a genomic region and only variants within this reason will be included.
 </details>
 
 #### Subset a set of variants by variant type, number of alleles present at a site, allele count, and allele frequency
 <details>
   <summary>How many single-nucleotide polymorphisms (SNPs) fall into the <em>PCAT1</em> region?</summary>
 
-<pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -r 8:128025399-128033259 -v snps data/example.vcf.gz | wc -l</code></pre>
+<pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -H -r 8:128025399-128033259 -v snps data/example.vcf.gz | wc -l</code></pre>
 
-The correct answer is **551**. The `-v` variable specifies which variant types to include. In this case, only SNPs are included.
+The correct answer is **295**. The `-v` variable specifies which variant types to include. In this case, only SNPs are included.
 </details>
 
 <details>
   <summary>How many of those SNPs are biallelic?</summary>
 
-<pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -r 8:128025399-128033259 -v snps --min-ac 2 --max-ac 2 data/example.vcf.gz | wc -l</code></pre>
+<pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -H -r 8:128025399-128033259 -v snps --min-ac 2 --max-ac 2 data/example.vcf.gz | wc -l</code></pre>
 
-The correct answer is **549**. The `--min-alleles` and `--max-alleles` variables specify how many alleles must be at least and at most present for a site to be included.
+The correct answer is **293**. The `--min-alleles` and `--max-alleles` variables specify how many alleles must be at least and at most present for a site to be included.
 </details>
 
 <details>
   <summary>How many of the biallelic SNPs have an allele count greater than or equal to 10?</summary>
 
-<pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -r 8:128025399-128033259 -v snps --min-ac 2 --max-ac 2 --min-ac 10 data/example.vcf.gz | wc -l</code></pre>
+<pre><code>user@bash:bcftools_tutorial_madcap $ bcftools view -H -r 8:128025399-128033259 -v snps --min-ac 2 --max-ac 2 --min-ac 10 data/example.vcf.gz | wc -l</code></pre>
 
-The correct answer is **256**. The `--min-ac` variables specify the minimum number of non-reference allele counts for a site to be included.
+The correct answer is **8**. The `--min-ac` variables specify the minimum number of non-reference allele counts for a site to be included.
 </details>
 
 <details>
-  <summary>How many of all variants in the <em>PCAT1</em> region are common in Africa (AF > 0.05) and rare in Europe (AF <=0.05)? <b>Hint:</b> you may want to use <code>bcftools query</code></summary>
+  <summary>How many of all variants in the <em>PCAT1</em> region are common in Africa (AF > 0.01) and rare in Europe (AF <=0.01)? <b>Hint:</b> you may want to use <code>bcftools query</code></summary>
 
 <pre><code>user@bash:bcftools_tutorial_madcap $ bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\t%INFO[\t%GT]\n' -i 'AFR_AF > 0.01 && EUR_AF <= 0.01' -r 8:128025399-128033259 data/example.vcf.gz | wc -l</code></pre>
 
